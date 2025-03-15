@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Generator</title>
+</head>
+<body>
+    <h1>AI Resume Generator</h1>
+    <form id="resumeForm">
+        <label for="name">Your Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="jobTitle">Current Job Title:</label><br>
+        <input type="text" id="jobTitle" name="jobTitle" required><br><br>
+        
+        <label for="skills">Your Skills:</label><br>
+        <input type="text" id="skills" name="skills" required><br><br>
+        
+        <label for="experience">Work Experience:</label><br>
+        <input type="text" id="experience" name="experience" required><br><br>
+        
+        <label for="targetJob">Target Job Title:</label><br>
+        <input type="text" id="targetJob" name="targetJob" required><br><br>
+        
+        <input type="submit" value="Generate Resume">
+    </form>
+
+    <p id="resumeOutput"></p>
+
+    <script>
+        document.getElementById("resumeForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const formData = {
+                name: document.getElementById("name").value,
+                job_title: document.getElementById("jobTitle").value,
+                skills: document.getElementById("skills").value,
+                experience: document.getElementById("experience").value,
+                target_job: document.getElementById("targetJob").value
+            };
+            const response = await fetch("https://your-replit-project-name.replit.app/generate_resume", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+            document.getElementById("resumeOutput").innerText = data.resume;
+        });
+    </script>
+</body>
+</html>
